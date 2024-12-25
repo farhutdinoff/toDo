@@ -1,11 +1,3 @@
-/*const array = [1, 2, 3, 5, 20, 42, 111]
-const arrayString = ['a', 'b', 'c']
-
-
-console.log(array[array.length - 1]) // array[6 - 1]
-array[0] = 'Privet'
-console.log(array)
-array[array.length] = 'becon'*/
 
 const inputElement = document.getElementById('title')
 const createBtn = document.getElementById('create')
@@ -71,13 +63,25 @@ person.getFullName()
 
 const notes = [
     {
-        title: 'записать блок про массивы',
+        title: 'заправить кровать',
         completed: false
     },
     {
-        title: 'рассказать теорию объектов',
-        completed: true
-    }
+        title: 'сделать зарядку',
+        completed: false
+    },
+    {
+        title: 'принять душ',
+        completed: false
+    },
+    {
+        title: 'Завтрак',
+        completed: false
+    },
+    {
+        title: 'составить план на день',
+        completed: false
+    },
 ]
 
 function render() {
@@ -126,11 +130,32 @@ listElement.onclick = function (event) {
 function getNoteTemplate(note, index) {
     return `
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            <span class="${note.completed ? 'text-decoration-line-through' : ''}">${note.title}</span>
+            <span class="${note.completed ? 'text-decoration-line-through' : ''}"  id="list-item">${note.title}</span>
             <span>
                 <span class="btn btn-small btn-${note.completed ? 'warning' : 'success'}" data-index="${index}" data-type="toggle">&check;</span>
                 <span class="btn btn-small btn-danger" data-index="${index}" data-type="remove">&times;</span>
             </span>
         </li>
         `
+}
+
+inputElement.oninput = function() {
+    let inputElementValue = this.value.trim();
+    let listElementItem = document.querySelectorAll('#list li')
+
+    if (inputElementValue) {
+        listElementItem.forEach(elem => {
+            if (elem.innerText.search(inputElementValue) == -1) {
+                elem.classList.add('hide')
+            }
+        })
+    } else{
+        listElementItem.forEach(elem => {
+            elem.classList.remove('hide')
+        })
+    }
+
+
+
+    // console.log(this.value)
 }
